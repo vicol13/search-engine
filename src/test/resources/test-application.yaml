@@ -1,0 +1,9 @@
+nlp:
+  paths:
+    corpus: src/test/resources/corpus
+    lemma_dict: src/test/resources/nlp/lemma_dict
+    stop_words: src/test/resources/nlp/stop-words.txt
+    pos_tags: src/test/resources/nlp/en-pos-maxent.bin
+
+
+time_format: dd-MMMM-yyyy hh:mm:ss

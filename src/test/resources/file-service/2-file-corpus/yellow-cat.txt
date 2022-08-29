@@ -1,0 +1,3 @@
+Many problems in software development are not because of code but developers creating the wrong software.
+This isn’t unusual because software is emergent and most people only understand what they want after what they asked for is created and they realise it's not that.
+Developers can help the process by being more inquisitive about the requirements and passing the yellow cat test.
