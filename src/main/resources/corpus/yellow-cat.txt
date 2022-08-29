@@ -1,0 +1,6 @@
+Many problems in software development are not because of code but developers creating the wrong software.
+This isn’t unusual because software is emergent and most people only understand what they want after what they asked for is created and they realise it's not that.
+Developers can help the process by being more inquisitive about the requirements and passing the yellow cat test.
+We need to see what is there, not what people are telling the development team or how developers assume the software should work. Initial requirements cover 50/70 percent and will always change.
+Assumption are bugs created by developers by assuming they know how the software should work. Developers need to open their eyes to assumptions and clarify them as soon as possible.
+If a development team builds on assumptions, when the assumption is wrong, the code and anything else (code, devops, documentation, tests) will need to be changed.
