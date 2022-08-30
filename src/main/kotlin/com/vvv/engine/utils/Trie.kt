@@ -56,7 +56,7 @@ open class Trie {
     private fun addLeafNode(word: String) {
         this.map.putIfAbsent(word, Trie())
         this.map[word]!!.word = word
-
+//        this.word = word
     }
 
     /**
@@ -120,7 +120,7 @@ open class Trie {
     /**
      * load all leaf nodes which are kids of this node
      */
-    private fun getWords(): List<String> {
+    fun getWords(): List<String> {
         val collectingList = mutableListOf<String>()
         if (this.isLeaf()) {
             collectingList.add(this.word!!)
@@ -131,13 +131,11 @@ open class Trie {
     }
 
     private fun collectFromChild(collectingList: MutableList<String>) {
-        this.map.values.forEach {
-            if (it.isLeaf()) {
-                collectingList.add(it.word!!)
-            } else if (it.map.isNotEmpty()) {
-                it.collectFromChild(collectingList)
+        this.map.values.forEach { entry ->
+            entry.word?.also { collectingList.add(it) }
+            if (entry.map.isNotEmpty()) {
+                entry.collectFromChild(collectingList)
             }
-
         }
     }
 
