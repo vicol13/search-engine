@@ -86,6 +86,11 @@ class FileBasedInvertedIndex(
         fileService.loadCorpus()
             .forEach { index(it) }
         logger.info("Re-Indexing corpus is done")
+        logger.info("Indexed [${this.map.keys.size}] words")
     }
 
+    /**
+     * return the word and number of occurrences used for building the trie
+     */
+    fun getStats() = this.map.mapValues { it.value.getOccurences() }
 }
