@@ -32,6 +32,9 @@ class FileMap {
         return this.map.entries
     }
 
+    fun getOccurences(): Int {
+        return map.values.sumOf { it.getOccurences() }
+    }
 }
 
 /**
@@ -55,6 +58,10 @@ class LineMap {
     fun get(line: Int) = this.map[line]
 
     fun keys() = this.map.keys
+    fun getOccurences(): Int {
+        return map.values.sumOf { it.size }
+    }
+
 }
 
 
