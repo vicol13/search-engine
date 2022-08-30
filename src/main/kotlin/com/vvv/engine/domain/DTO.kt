@@ -2,7 +2,9 @@ package com.vvv.engine.domain
 
 data class WordSearchResultDTO(
     val word: String,
-    val files: List<FileSearchDTO>
+    val files: List<FileSearchDTO>,
+    val occurrences: Int = files.map { it.sentences }
+        .flatten().sumOf { it.indexes.size }
 )
 
 data class FileSearchDTO(
