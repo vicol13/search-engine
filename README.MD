@@ -13,8 +13,42 @@ Main endpoints are
    ```shell
     curl --location --request GET 'http://localhost:8080/search/<your_word_here>'
     ```
+   returns : 
+   ```json
+    "word": "person",
+    "files": [
+        {
+            "fileName": "UK youth interested in politics  -[politics].txt",
+            "sentences": [
+                {
+                    "sentence": "The majority of young people are interested in politics, holding \"strong opinions\" on policies and have a \"keen appetite\" for direct action.",
+                    "line": 0,
+                    "indexes": [
+                        {
+                            "begin": 18,
+                            "end": 24
+                        }
+                    ]
+                }
+        ....
+   ```   
+
+
 2. for getting words based on prefix
     ```shell
    curl --location --request GET 'http://localhost:8080/search?prefix=<your_prefix_here>'
    ```
-   as default is used weighted trie, you can change it in ```TrieBeanConfiguration```
+   as default is used weighted trie, you can change it in ```TrieBeanConfiguration```, return
+   
+   ```json
+   [
+   "play",
+   "player",
+   "playing",
+   "playwright",
+   "playground",
+   "playschool",
+   "playboyz",
+   "playmaker"
+   ]
+   ```
