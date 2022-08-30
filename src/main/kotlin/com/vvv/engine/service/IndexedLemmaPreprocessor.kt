@@ -7,7 +7,10 @@ import opennlp.tools.tokenize.SimpleTokenizer
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
-
+/**
+ * todo:
+ *  1. add is ascii validation
+ */
 @Service
 class IndexedLemmaPreprocessor(
     @Autowired private val posTagger: POSTaggerME,
@@ -15,7 +18,7 @@ class IndexedLemmaPreprocessor(
     @Autowired private val lemmatizer: DictionaryLemmatizer,
     @Autowired private val tokenizer: SimpleTokenizer
 ) : Preprocessor<IndexedWord> {
-    private val PUNCTUATION = setOf(",", "!", "?", ".", "'", "\"", "’")
+    private val PUNCTUATION = setOf(",", "!", "?", ".", "'", "\"", "’", "—", "")
 
 
     private fun isNotStopWord(word: String): Boolean {
