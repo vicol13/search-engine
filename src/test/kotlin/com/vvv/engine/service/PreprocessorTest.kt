@@ -53,10 +53,10 @@ class PreprocessorTest {
         val result = preprocessor.clean(phrase)
         //then
         Assertions.assertEquals(4, result.size)
-        Assertions.assertEquals(IndexedWord("cat", mutableListOf(Index(2, 6))), result[0])
-        Assertions.assertEquals(IndexedWord("dog", mutableListOf(Index(7, 11))), result[1])
-        Assertions.assertEquals(IndexedWord("play", mutableListOf(Index(14, 21))), result[2])
-        Assertions.assertEquals(IndexedWord("kid", mutableListOf(Index(25, 29))), result[3])
+        Assertions.assertEquals(IndexedWord("cat", mutableListOf(Index(3, 8))), result[0])
+        Assertions.assertEquals(IndexedWord("dog", mutableListOf(Index(9, 13))), result[1])
+        Assertions.assertEquals(IndexedWord("play", mutableListOf(Index(18, 25))), result[2])
+        Assertions.assertEquals(IndexedWord("kid", mutableListOf(Index(31, 35))), result[3])
 
     }
 
@@ -71,9 +71,9 @@ class PreprocessorTest {
         print(result)
         Assertions.assertEquals(3, result.size)
         Assertions.assertEquals(2, result[0].indexes.size)
-        Assertions.assertEquals(IndexedWord("play", mutableListOf(Index(2, 7), Index(33, 40))), result[0])
-        Assertions.assertEquals(IndexedWord("wife", mutableListOf(Index(14, 18))), result[1])
-        Assertions.assertEquals(IndexedWord("kid", mutableListOf(Index(26, 30))), result[2])
-//        Assertions.assertArrayEquals(arrayOf("play", "wife", "kid"), result.toTypedArray())
+        Assertions.assertEquals(IndexedWord("play", mutableListOf(Index(3, 8), Index(42, 49))), result[0])
+        Assertions.assertEquals(IndexedWord("wife", mutableListOf(Index(18, 22))), result[1])
+        Assertions.assertEquals(IndexedWord("kid", mutableListOf(Index(33, 37))), result[2])
+        Assertions.assertArrayEquals(arrayOf("play", "wife", "kid"), result.map { it.word }.toTypedArray())
     }
 }
