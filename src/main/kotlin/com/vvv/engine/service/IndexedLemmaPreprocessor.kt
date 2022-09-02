@@ -23,7 +23,10 @@ class IndexedLemmaPreprocessor(
     private val PUNCTUATION = setOf(",", "!", "?", ".", "'", "\"", "’", "—", "", ":", ";")
 
 
-
+    /**
+     * function which validate that a word is not
+     * a stop word (.i.e. an and)
+     */
     private fun isNotStopWord(word: String): Boolean {
         return !this.stopWords.contains(word)
     }
@@ -31,6 +34,7 @@ class IndexedLemmaPreprocessor(
 
     /**
      * Function which return base form (lemma) of a single word
+     * (i.e. eating to eat, cats to cat)
      */
     override fun toBaseForm(word: String): String {
         return this.lemmatize(arrayOf(word)).first()
@@ -62,9 +66,6 @@ class IndexedLemmaPreprocessor(
 
     }
 
-    private fun String.byIndex(start: Int, end: Int): String {
-        return this.subSequence(start, end).toString()
-    }
 
     /**
      *  Apply lemmatization and POS tagging to a sentence
@@ -95,6 +96,11 @@ class IndexedLemmaPreprocessor(
             else sentence[index].copy(word = lemma)
         }
     }
+
+    private fun String.byIndex(start: Int, end: Int): String {
+        return this.subSequence(start, end).toString()
+    }
+
 }
 
 
