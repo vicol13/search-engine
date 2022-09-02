@@ -6,6 +6,7 @@ import com.vvv.engine.service.SearchService
 import com.vvv.engine.service.TriePrefixService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.ResponseStatus
@@ -23,12 +24,14 @@ class SearchController(
 
     @GetMapping("/search/{word}")
     @ResponseStatus(HttpStatus.OK)
+    @CrossOrigin
     fun search(@PathVariable("word") word: String): WordSearchResultDTO {
         return this.searchService.search(word)
     }
 
     @GetMapping("/search")
     @ResponseStatus(HttpStatus.OK)
+    @CrossOrigin
     fun getWords(
         @PathParam("prefix") prefix: String?
     ): List<String> {
