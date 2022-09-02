@@ -1,5 +1,6 @@
 package com.vvv.engine.service
 
+import com.vvv.engine.advice.TrackExecutionTime
 import com.vvv.engine.domain.FileMap
 import com.vvv.engine.domain.IndexedWord
 import com.vvv.engine.domain.NoSuchWordException
@@ -60,6 +61,7 @@ class FileBasedInvertedIndex(
      *      1. in case of adding pagination it should be added here
      *      before data is loaded from file
      */
+    @TrackExecutionTime
     override fun search(word: String): WordSearchResultDTO {
         val baseForm = this.preprocessor.toBaseForm(word)
         val occurrences = this.map[baseForm]
