@@ -6,6 +6,8 @@ import opennlp.tools.postag.POSTaggerME
 import opennlp.tools.tokenize.SimpleTokenizer
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.lang.Exception
+import java.lang.RuntimeException
 
 /**
  * todo:
@@ -18,9 +20,9 @@ class IndexedLemmaPreprocessor(
     @Autowired private val lemmatizer: DictionaryLemmatizer,
     @Autowired private val tokenizer: SimpleTokenizer
 ) : Preprocessor<IndexedWord> {
-    private val PUNCTUATION = setOf(",", "!", "?", ".", "'", "\"", "’", "—", "")
+    private val PUNCTUATION = setOf(",", "!", "?", ".", "'", "\"", "’", "—", "", ":", ";")
 
-
+    private val temp = setOf("'", "\"")
     private fun isNotStopWord(word: String): Boolean {
         return !this.stopWords.contains(word)
     }
@@ -44,15 +46,30 @@ class IndexedLemmaPreprocessor(
      */
     override fun clean(sentence: String): List<IndexedWord> {
         var counter = 0
+        sentence.replace("\"", "")
         return sentence
-            .let { this.tokenizer.tokenize(sentence) }
+            .let { sentence.split(" ") }
             .map { it.lowercase() }
+
             //count index for of each word in sentence
             .map {
+                if (counter != 0) {
+                    counter += 1
+                }
                 counter += it.length
+
+                if (counter == (sentence.length - it.length)) {
+                    counter -= 1
+                }
                 return@map IndexedWord(it, counter - it.length, counter)
+
             }
-            .let { lemmatizeIndexed(it.toTypedArray()) }
+            .map {
+                it.copy(word = it.word.replace("[,.!@#$%^&*()\"]".toRegex(), ""))
+            }
+            .let {
+                lemmatizeIndexed(it.toTypedArray())
+            }
             //remove punctuation and stop words
             .filter { !PUNCTUATION.contains(it.word) && isNotStopWord(it.word) }
             //group words into map by key
@@ -99,8 +116,28 @@ class IndexedLemmaPreprocessor(
             else sentence[index].copy(word = lemma)
         }
     }
-
-
+//  if (PUNCTUATION.contains(it) ){
+//        counter+=1
+//        previous = it
+//        return@mapIndexedNotNull null
+//    }
+//
+//    if (counter >0){
+//        counter+=1
+//    }
+////                if (counter > 0 && !PUNCTUATION.contains(it)  && !temp.contains(previous)) {
+////                    counter += 1
+////                }
+//    counter += it.length
+//    try {
+//        println("$it --> ${sentence.subSequence(counter - it.length, counter)}")
+//    }catch (e:Exception){
+//        println("sad")
+//    }
+//
+//
+//    previous = it
+//    return@mapIndexedNotNull IndexedWord(it, counter - it.length, counter)
 }
 
 
