@@ -53,7 +53,7 @@ class PreprocessorTest {
         val result = preprocessor.clean(phrase)
         //then
         Assertions.assertEquals(4, result.size)
-        Assertions.assertEquals(IndexedWord("cat", mutableListOf(Index(3, 8))), result[0])
+        Assertions.assertEquals(IndexedWord("cat", mutableListOf(Index(3, 7))), result[0])
         Assertions.assertEquals(IndexedWord("dog", mutableListOf(Index(9, 13))), result[1])
         Assertions.assertEquals(IndexedWord("play", mutableListOf(Index(18, 25))), result[2])
         Assertions.assertEquals(IndexedWord("kid", mutableListOf(Index(31, 35))), result[3])
