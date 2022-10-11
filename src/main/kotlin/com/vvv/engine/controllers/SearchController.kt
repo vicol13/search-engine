@@ -1,9 +1,11 @@
 package com.vvv.engine.controllers
 
+import com.vvv.engine.domain.FileSearchDTO
 import com.vvv.engine.domain.WordSearchResultDTO
 import com.vvv.engine.service.PrefixService
 import com.vvv.engine.service.SearchService
 import com.vvv.engine.service.TriePrefixService
+import org.jetbrains.annotations.NotNull
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.CrossOrigin
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable
 
 import java.lang.RuntimeException
 import javax.websocket.server.PathParam
@@ -39,5 +43,15 @@ class SearchController(
             throw RuntimeException("specify prefix for")
         }
         return this.prefixService.search(prefix)
+    }
+
+    @GetMapping("/v2/search/{word}")
+    @ResponseStatus(HttpStatus.OK)
+    @CrossOrigin
+    fun searchPage(
+        @PathVariable("word") word: String,
+        @Autowired pageable: Pageable
+    ): Page<FileSearchDTO> {
+        return this.searchService.search(word, pageable)
     }
 }

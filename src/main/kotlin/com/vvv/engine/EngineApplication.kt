@@ -9,5 +9,4 @@ class EngineApplication
 
 fun main(args: Array<String>) {
 	runApplication<EngineApplication>(*args)
-
 }

@@ -21,7 +21,7 @@ import java.util.*
  */
 class FileMap {
 
-    private val map: MutableMap<String, LineMap> = mutableMapOf()
+    private val map: TreeMap<String, LineMap> = TreeMap<String,LineMap>()
 
     fun update(fileName: String): LineMap {
         this.map.putIfAbsent(fileName, LineMap())

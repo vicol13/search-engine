@@ -9,10 +9,7 @@ import org.springframework.stereotype.Service
 import java.lang.Exception
 import java.lang.RuntimeException
 
-/**
- * todo:
- *  1. add is ascii validation
- */
+
 @Service
 class IndexedLemmaPreprocessor(
     @Autowired private val posTagger: POSTaggerME,
@@ -51,17 +48,23 @@ class IndexedLemmaPreprocessor(
      */
     override fun clean(sentence: String): List<IndexedWord> {
         return sentence
+                //apply tokenization (return and indexes)
             .let { tokenizer.tokenizePos(it) }
+                //save indexes of each word in sentences
             .map { IndexedWord(sentence.byIndex(it.start, it.end), it.start, it.end) }
+                //get base form of word
             .let { lemmatizeIndexed(it.toTypedArray()) }
+                //filter out punctuation and stop words
             .filter { !PUNCTUATION.contains(it.word) && isNotStopWord(it.word) }
+                //as one word might be repeated more than one time in sentence
+                //we should aggregate indexes
             .groupingBy { it.word }
             .aggregate { _, accumulator: IndexedWord?, element: IndexedWord, first: Boolean ->
                 val result = if (first) element else accumulator.also { it!!.indexes.addAll(element.indexes) }
                 return@aggregate result as IndexedWord
             }
-            //as we have Map<String,IndexedWords> we return
-            //only the values
+                //as we have Map<String,IndexedWords> we return
+                //only the values
             .map { it.value }
 
     }
